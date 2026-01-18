@@ -251,13 +251,55 @@
     @apply bg-red-100 text-red-700 border-red-200;
   }
 
-  /* Prose Styling */
+  /* Prose Styling - Custom implementation */
   .prose-scriptora {
-    @apply prose prose-lg max-w-none;
-    @apply prose-headings:text-foreground prose-headings:font-heading;
-    @apply prose-p:text-muted-foreground prose-p:leading-relaxed;
-    @apply prose-strong:text-foreground prose-strong:font-semibold;
-    @apply prose-ul:text-muted-foreground prose-ol:text-muted-foreground;
+    @apply max-w-none text-base leading-relaxed;
+  }
+  
+  .prose-scriptora h1,
+  .prose-scriptora h2,
+  .prose-scriptora h3,
+  .prose-scriptora h4,
+  .prose-scriptora h5,
+  .prose-scriptora h6 {
+    @apply text-foreground font-semibold mt-6 mb-3;
+  }
+  
+  .prose-scriptora h1 { @apply text-3xl; }
+  .prose-scriptora h2 { @apply text-2xl; }
+  .prose-scriptora h3 { @apply text-xl; }
+  
+  .prose-scriptora p {
+    @apply text-muted-foreground leading-relaxed mb-4;
+  }
+  
+  .prose-scriptora strong {
+    @apply text-foreground font-semibold;
+  }
+  
+  .prose-scriptora ul,
+  .prose-scriptora ol {
+    @apply text-muted-foreground pl-6 mb-4;
+  }
+  
+  .prose-scriptora li {
+    @apply mb-2;
+  }
+  
+  .prose-scriptora a {
+    @apply text-primary underline;
+  }
+  
+  .prose-scriptora blockquote {
+    @apply border-l-4 border-primary/30 pl-4 italic text-muted-foreground;
+  }
+  
+  .prose-scriptora code {
+    @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+  
+  .prose-scriptora pre {
+    @apply bg-muted p-4 rounded-lg overflow-x-auto mb-4;
   }
 }
 
