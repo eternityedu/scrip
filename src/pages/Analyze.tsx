@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/lib/auth-context';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Sparkles, ArrowLeft, BarChart3, Loader2, CheckCircle, AlertCircle, Copy, Download, Lightbulb } from 'lucide-react';
+import { Sparkles, ArrowLeft, BarChart3, Loader2, CheckCircle, Lightbulb } from 'lucide-react';
 import { toast } from 'sonner';
 import { Navigate } from 'react-router-dom';
 
@@ -33,9 +33,9 @@ const scoreLabels = [
 ];
 
 function RadarChart({ data }: { data: AnalysisResult }) {
-  const size = 280;
+  const size = 240;
   const center = size / 2;
-  const radius = 100;
+  const radius = 80;
   const levels = 5;
   
   const scores = scoreLabels.map(s => data[s.key as keyof AnalysisResult] as number);
@@ -100,7 +100,7 @@ function RadarChart({ data }: { data: AnalysisResult }) {
           key={i}
           cx={p.x}
           cy={p.y}
-          r="4"
+          r="3"
           fill="hsl(260 60% 55%)"
         />
       ))}
@@ -108,7 +108,7 @@ function RadarChart({ data }: { data: AnalysisResult }) {
       {/* Labels */}
       {scoreLabels.map((s, i) => {
         const angle = i * angleStep - Math.PI / 2;
-        const labelRadius = radius + 30;
+        const labelRadius = radius + 25;
         const x = center + labelRadius * Math.cos(angle);
         const y = center + labelRadius * Math.sin(angle);
         return (
@@ -118,7 +118,7 @@ function RadarChart({ data }: { data: AnalysisResult }) {
             y={y}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="text-xs fill-muted-foreground"
+            className="text-[10px] sm:text-xs fill-muted-foreground"
           >
             {s.label}
           </text>
@@ -138,13 +138,13 @@ function ScoreBar({ label, score, color }: { label: string; score: number; color
   
   return (
     <div className="space-y-1">
-      <div className="flex justify-between text-sm">
+      <div className="flex justify-between text-xs sm:text-sm">
         <span className="text-muted-foreground">{label}</span>
         <span className={`font-medium px-2 py-0.5 rounded-full text-xs border ${getScoreClass(score)}`}>
           {score.toFixed(1)}
         </span>
       </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
+      <div className="h-1.5 sm:h-2 bg-muted rounded-full overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-500"
           style={{ width: `${score * 10}%`, backgroundColor: color }}
@@ -232,53 +232,53 @@ export default function AnalyzePage() {
     <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="h-5 w-5" />
+        <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="h-8 w-8 sm:h-10 sm:w-10">
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-emerald-500 flex items-center justify-center">
-                <BarChart3 className="h-5 w-5 text-white" />
+              <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-emerald-500 flex items-center justify-center">
+                <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold">Content Analyzer</h1>
-                <p className="text-xs text-muted-foreground">Get quality scores & feedback</p>
+                <h1 className="text-base sm:text-lg font-bold">Content Analyzer</h1>
+                <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">Get quality scores & feedback</p>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+      <main className="container mx-auto px-4 py-4 sm:py-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-4 sm:gap-8">
           {/* Input Section */}
-          <div className="space-y-6">
-            <div className="bg-card border border-border rounded-2xl p-6">
-              <h2 className="text-lg font-semibold mb-4">Paste Your Content</h2>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Paste Your Content</h2>
               <Textarea
                 placeholder="Paste your content here to analyze its quality... (minimum 50 characters)"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="min-h-[400px] resize-none"
+                className="min-h-[250px] sm:min-h-[400px] resize-none text-sm sm:text-base"
               />
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-sm text-muted-foreground">
+              <div className="flex items-center justify-between mt-3 sm:mt-4">
+                <span className="text-xs sm:text-sm text-muted-foreground">
                   {content.length} characters
                 </span>
                 <Button
                   onClick={handleAnalyze}
                   disabled={isAnalyzing || content.trim().length < 50}
-                  className="bg-gradient-primary hover:opacity-90"
+                  className="bg-gradient-primary hover:opacity-90 h-9 sm:h-10 text-sm sm:text-base"
                 >
                   {isAnalyzing ? (
                     <>
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      <Loader2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 animate-spin mr-2" />
                       Analyzing...
                     </>
                   ) : (
                     <>
-                      <BarChart3 className="h-4 w-4 mr-2" />
+                      <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />
                       Analyze Content
                     </>
                   )}
@@ -288,27 +288,27 @@ export default function AnalyzePage() {
           </div>
 
           {/* Results Section */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {result ? (
               <>
                 {/* Overall Score */}
-                <div className="bg-card border border-border rounded-2xl p-6 text-center">
-                  <h2 className="text-lg font-semibold mb-4">Overall Quality Score</h2>
-                  <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full text-4xl font-bold ${getOverallScoreClass(result.overall_score)}`}>
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 text-center">
+                  <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Overall Quality Score</h2>
+                  <div className={`inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full text-3xl sm:text-4xl font-bold ${getOverallScoreClass(result.overall_score)}`}>
                     {result.overall_score.toFixed(1)}
                   </div>
-                  <p className="text-muted-foreground mt-4">{result.explanation}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground mt-3 sm:mt-4">{result.explanation}</p>
                 </div>
 
                 {/* Radar Chart */}
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <h2 className="text-lg font-semibold mb-4 text-center">Quality Breakdown</h2>
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                  <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4 text-center">Quality Breakdown</h2>
                   <RadarChart data={result} />
                 </div>
 
                 {/* Score Bars */}
-                <div className="bg-card border border-border rounded-2xl p-6 space-y-4">
-                  <h2 className="text-lg font-semibold mb-4">Detailed Scores</h2>
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 space-y-3 sm:space-y-4">
+                  <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Detailed Scores</h2>
                   {scoreLabels.map((s) => (
                     <ScoreBar
                       key={s.key}
@@ -320,31 +320,31 @@ export default function AnalyzePage() {
                 </div>
 
                 {/* Strengths & Improvements */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-card border border-border rounded-2xl p-6">
-                    <h3 className="font-semibold flex items-center gap-2 mb-3">
-                      <CheckCircle className="h-5 w-5 text-emerald-500" />
+                <div className="grid sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <h3 className="font-semibold flex items-center gap-2 mb-2 sm:mb-3 text-sm sm:text-base">
+                      <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-500" />
                       Strengths
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 sm:space-y-2">
                       {result.strengths.map((s, i) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-emerald-500 mt-1">•</span>
+                        <li key={i} className="text-xs sm:text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-emerald-500 mt-0.5">•</span>
                           {s}
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  <div className="bg-card border border-border rounded-2xl p-6">
-                    <h3 className="font-semibold flex items-center gap-2 mb-3">
-                      <Lightbulb className="h-5 w-5 text-amber-500" />
+                  <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <h3 className="font-semibold flex items-center gap-2 mb-2 sm:mb-3 text-sm sm:text-base">
+                      <Lightbulb className="h-4 w-4 sm:h-5 sm:w-5 text-amber-500" />
                       Improvements
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5 sm:space-y-2">
                       {result.improvements.map((s, i) => (
-                        <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                          <span className="text-amber-500 mt-1">•</span>
+                        <li key={i} className="text-xs sm:text-sm text-muted-foreground flex items-start gap-2">
+                          <span className="text-amber-500 mt-0.5">•</span>
                           {s}
                         </li>
                       ))}
@@ -353,11 +353,11 @@ export default function AnalyzePage() {
                 </div>
               </>
             ) : (
-              <div className="bg-card border border-border rounded-2xl p-12 text-center">
-                <BarChart3 className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No Analysis Yet</h3>
-                <p className="text-muted-foreground">
-                  Paste your content on the left and click "Analyze Content" to get quality scores and improvement suggestions.
+              <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-8 sm:p-12 text-center">
+                <BarChart3 className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground/30 mx-auto mb-4" />
+                <h3 className="text-base sm:text-lg font-semibold mb-2">No Analysis Yet</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
+                  Paste your content and click "Analyze Content" to get quality scores and improvement suggestions.
                 </p>
               </div>
             )}

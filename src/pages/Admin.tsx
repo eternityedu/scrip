@@ -186,148 +186,155 @@ export default function AdminPage() {
     <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="h-5 w-5" />
+        <div className="container mx-auto px-4 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="h-8 w-8 sm:h-10 sm:w-10">
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow">
-                <Shield className="h-5 w-5 text-white" />
+              <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-gradient-primary flex items-center justify-center shadow-glow">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-bold">Admin Panel</h1>
-                <p className="text-xs text-muted-foreground">Manage users & settings</p>
+                <h1 className="text-base sm:text-lg font-bold">Admin Panel</h1>
+                <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">Manage users & settings</p>
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="analytics" className="space-y-6">
-          <TabsList className="grid w-full max-w-lg grid-cols-4">
-            <TabsTrigger value="analytics"><BarChart3 className="h-4 w-4 mr-2" />Analytics</TabsTrigger>
-            <TabsTrigger value="users"><Users className="h-4 w-4 mr-2" />Users</TabsTrigger>
-            <TabsTrigger value="ai"><Settings className="h-4 w-4 mr-2" />AI Settings</TabsTrigger>
-            <TabsTrigger value="logs"><Activity className="h-4 w-4 mr-2" />Logs</TabsTrigger>
+      <main className="container mx-auto px-4 py-4 sm:py-8">
+        <Tabs defaultValue="analytics" className="space-y-4 sm:space-y-6">
+          <TabsList className="w-full overflow-x-auto flex sm:grid sm:w-full sm:max-w-lg sm:grid-cols-4 gap-1">
+            <TabsTrigger value="analytics" className="flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
+              <BarChart3 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">Analytics</span>
+            </TabsTrigger>
+            <TabsTrigger value="users" className="flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
+              <Users className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">Users</span>
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
+              <Settings className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">AI</span>
+            </TabsTrigger>
+            <TabsTrigger value="logs" className="flex-shrink-0 text-xs sm:text-sm px-2 sm:px-3">
+              <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden xs:inline">Logs</span>
+            </TabsTrigger>
           </TabsList>
 
           {/* Analytics Tab */}
-          <TabsContent value="analytics" className="space-y-6">
+          <TabsContent value="analytics" className="space-y-4 sm:space-y-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
               </div>
             ) : analytics && (
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 rounded-xl bg-violet-100 flex items-center justify-center">
-                      <Users className="h-5 w-5 text-violet-600" />
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-violet-100 flex items-center justify-center">
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-violet-600" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Total Users</span>
+                    <span className="text-[10px] sm:text-sm text-muted-foreground">Total Users</span>
                   </div>
-                  <p className="text-3xl font-bold">{analytics.totalUsers}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{analytics.totalUsers}</p>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 rounded-xl bg-indigo-100 flex items-center justify-center">
-                      <FileText className="h-5 w-5 text-indigo-600" />
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-indigo-100 flex items-center justify-center">
+                      <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-indigo-600" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Content Generated</span>
+                    <span className="text-[10px] sm:text-sm text-muted-foreground">Content</span>
                   </div>
-                  <p className="text-3xl font-bold">{analytics.totalContent}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{analytics.totalContent}</p>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                      <BarChart3 className="h-5 w-5 text-emerald-600" />
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-emerald-100 flex items-center justify-center">
+                      <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Analyses Run</span>
+                    <span className="text-[10px] sm:text-sm text-muted-foreground">Analyses</span>
                   </div>
-                  <p className="text-3xl font-bold">{analytics.totalAnalysis}</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{analytics.totalAnalysis}</p>
                 </div>
 
-                <div className="bg-card border border-border rounded-2xl p-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="h-10 w-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                      <Sparkles className="h-5 w-5 text-amber-600" />
+                <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                    <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-amber-100 flex items-center justify-center">
+                      <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600" />
                     </div>
-                    <span className="text-sm text-muted-foreground">Avg Quality Score</span>
+                    <span className="text-[10px] sm:text-sm text-muted-foreground">Avg Score</span>
                   </div>
-                  <p className="text-3xl font-bold">{analytics.avgQualityScore.toFixed(1)}/10</p>
+                  <p className="text-2xl sm:text-3xl font-bold">{analytics.avgQualityScore.toFixed(1)}/10</p>
                 </div>
               </div>
             )}
           </TabsContent>
 
           {/* Users Tab */}
-          <TabsContent value="users" className="space-y-6">
-            <div className="flex items-center gap-4">
-              <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search users..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+          <TabsContent value="users" className="space-y-4 sm:space-y-6">
+            <div className="relative w-full max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search users..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 h-10"
+              />
             </div>
 
-            <div className="bg-card border border-border rounded-2xl overflow-hidden">
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full min-w-[600px]">
                   <thead className="bg-muted/50">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">User</th>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Role</th>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Content</th>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Joined</th>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Status</th>
-                      <th className="px-6 py-4 text-left text-sm font-medium text-muted-foreground">Actions</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-medium text-muted-foreground">User</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-medium text-muted-foreground">Role</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-medium text-muted-foreground">Content</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-medium text-muted-foreground">Status</th>
+                      <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-medium text-muted-foreground">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
                     {filteredUsers.map((u) => (
                       <tr key={u.id} className="hover:bg-muted/30">
-                        <td className="px-6 py-4">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
                           <div>
-                            <p className="font-medium">{u.full_name || 'No name'}</p>
-                            <p className="text-sm text-muted-foreground">{u.email}</p>
+                            <p className="font-medium text-xs sm:text-sm">{u.full_name || 'No name'}</p>
+                            <p className="text-[10px] sm:text-xs text-muted-foreground truncate max-w-[120px] sm:max-w-none">{u.email}</p>
                           </div>
                         </td>
-                        <td className="px-6 py-4">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
+                          <span className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium ${
                             u.role === 'admin' ? 'bg-violet-100 text-violet-700' : 'bg-muted text-muted-foreground'
                           }`}>
                             {u.role}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm">{u.content_count}</td>
-                        <td className="px-6 py-4 text-sm text-muted-foreground">
-                          {new Date(u.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm">{u.content_count}</td>
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
                           {u.is_blocked ? (
-                            <span className="flex items-center gap-1 text-red-600 text-sm">
-                              <Ban className="h-4 w-4" /> Blocked
+                            <span className="flex items-center gap-1 text-red-600 text-[10px] sm:text-sm">
+                              <Ban className="h-3 w-3 sm:h-4 sm:w-4" /> Blocked
                             </span>
                           ) : (
-                            <span className="flex items-center gap-1 text-emerald-600 text-sm">
-                              <CheckCircle className="h-4 w-4" /> Active
+                            <span className="flex items-center gap-1 text-emerald-600 text-[10px] sm:text-sm">
+                              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4" /> Active
                             </span>
                           )}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-3 sm:px-6 py-3 sm:py-4">
                           {u.role !== 'admin' && (
                             <Button
                               variant={u.is_blocked ? 'outline' : 'destructive'}
                               size="sm"
                               onClick={() => toggleBlockUser(u.user_id, u.is_blocked)}
+                              className="h-7 sm:h-8 text-xs sm:text-sm px-2 sm:px-3"
                             >
                               {u.is_blocked ? 'Unblock' : 'Block'}
                             </Button>
@@ -342,65 +349,65 @@ export default function AdminPage() {
           </TabsContent>
 
           {/* AI Settings Tab */}
-          <TabsContent value="ai" className="space-y-6">
-            <div className="bg-card border border-border rounded-2xl p-6">
-              <h3 className="text-lg font-semibold mb-4">AI Control Center</h3>
-              <p className="text-muted-foreground mb-6">
+          <TabsContent value="ai" className="space-y-4 sm:space-y-6">
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">AI Control Center</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
                 Configure AI generation settings and quality thresholds.
               </p>
               
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-muted/30 rounded-lg sm:rounded-xl gap-2 sm:gap-0">
                   <div>
-                    <p className="font-medium">Content Writer</p>
-                    <p className="text-sm text-muted-foreground">Generate blogs, articles, and more</p>
+                    <p className="font-medium text-sm sm:text-base">Content Writer</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Generate blogs, articles, and more</p>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium">Enabled</span>
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs sm:text-sm font-medium self-start sm:self-auto">Enabled</span>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-muted/30 rounded-lg sm:rounded-xl gap-2 sm:gap-0">
                   <div>
-                    <p className="font-medium">Script Generator</p>
-                    <p className="text-sm text-muted-foreground">YouTube, podcast, and video scripts</p>
+                    <p className="font-medium text-sm sm:text-base">Script Generator</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">YouTube, podcast, and video scripts</p>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium">Enabled</span>
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs sm:text-sm font-medium self-start sm:self-auto">Enabled</span>
                 </div>
 
-                <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-muted/30 rounded-lg sm:rounded-xl gap-2 sm:gap-0">
                   <div>
-                    <p className="font-medium">Content Analyzer</p>
-                    <p className="text-sm text-muted-foreground">Quality scoring and feedback</p>
+                    <p className="font-medium text-sm sm:text-base">Content Analyzer</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Quality scoring and feedback</p>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-sm font-medium">Enabled</span>
+                  <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs sm:text-sm font-medium self-start sm:self-auto">Enabled</span>
                 </div>
               </div>
             </div>
           </TabsContent>
 
           {/* Logs Tab */}
-          <TabsContent value="logs" className="space-y-6">
-            <div className="bg-card border border-border rounded-2xl overflow-hidden">
-              <div className="p-4 border-b border-border">
-                <h3 className="font-semibold">Activity Logs</h3>
-                <p className="text-sm text-muted-foreground">Recent system activity</p>
+          <TabsContent value="logs" className="space-y-4 sm:space-y-6">
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl overflow-hidden">
+              <div className="p-3 sm:p-4 border-b border-border">
+                <h3 className="font-semibold text-sm sm:text-base">Activity Logs</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">Recent system activity</p>
               </div>
-              <div className="max-h-[500px] overflow-y-auto">
+              <div className="max-h-[400px] sm:max-h-[500px] overflow-y-auto">
                 {logs.length === 0 ? (
-                  <div className="p-8 text-center text-muted-foreground">
+                  <div className="p-6 sm:p-8 text-center text-muted-foreground text-sm">
                     No activity logs yet
                   </div>
                 ) : (
                   <div className="divide-y divide-border">
                     {logs.map((log) => (
-                      <div key={log.id} className="px-6 py-4 hover:bg-muted/30">
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <p className="font-medium">{log.action.replace(/_/g, ' ')}</p>
-                            <p className="text-sm text-muted-foreground">
+                      <div key={log.id} className="px-3 sm:px-6 py-3 sm:py-4 hover:bg-muted/30">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0 flex-1">
+                            <p className="font-medium text-xs sm:text-sm">{log.action.replace(/_/g, ' ')}</p>
+                            <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                               {log.details?.email || log.user_id || 'System'}
                             </p>
                           </div>
-                          <span className="text-xs text-muted-foreground">
+                          <span className="text-[10px] sm:text-xs text-muted-foreground whitespace-nowrap">
                             {formatDate(log.created_at)}
                           </span>
                         </div>
