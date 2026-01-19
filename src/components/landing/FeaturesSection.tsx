@@ -35,30 +35,30 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-24 lg:py-32 bg-background">
+    <section id="features" className="py-16 sm:py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-4">
             Everything You Need to{' '}
             <span className="gradient-text">Create & Analyze</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base sm:text-lg text-muted-foreground px-2">
             Powerful AI tools designed specifically for content creation and quality analysis.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="card-hover group relative rounded-2xl border border-border bg-card p-6 lg:p-8"
+              className="card-hover group relative rounded-xl sm:rounded-2xl border border-border bg-card p-5 sm:p-6 lg:p-8"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-glow">
-                <feature.icon className="h-6 w-6" />
+              <div className="mb-3 sm:mb-4 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-primary/10 text-primary transition-all group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-glow">
+                <feature.icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2">{feature.title}</h3>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{feature.description}</p>
             </div>
           ))}
         </div>

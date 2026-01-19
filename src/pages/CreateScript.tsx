@@ -5,7 +5,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sparkles, ArrowLeft, FileText, Loader2, Copy, Download, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
@@ -195,62 +194,65 @@ export default function CreateScriptPage() {
     <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')}>
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <div className="h-9 w-9 rounded-xl bg-indigo-500 flex items-center justify-center">
-                <FileText className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold">Script Generator</h1>
-                <p className="text-xs text-muted-foreground">YouTube, podcast, and video scripts</p>
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Button variant="ghost" size="icon" onClick={() => navigate('/dashboard')} className="h-8 w-8 sm:h-10 sm:w-10">
+                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Button>
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg sm:rounded-xl bg-indigo-500 flex items-center justify-center">
+                  <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-base sm:text-lg font-bold">Script Generator</h1>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">YouTube, podcast, and video scripts</p>
+                </div>
               </div>
             </div>
+            
+            {generatedContent && (
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Button variant="outline" size="sm" onClick={handleCopy} className="h-8 px-2 sm:px-3">
+                  <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Copy</span>
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleDownload} className="h-8 px-2 sm:px-3">
+                  <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">Download</span>
+                </Button>
+                <Button variant="ghost" size="sm" onClick={handleReset} className="h-8 px-2 sm:px-3">
+                  <RotateCcw className="h-3.5 w-3.5 sm:h-4 sm:w-4 sm:mr-2" />
+                  <span className="hidden sm:inline">New</span>
+                </Button>
+              </div>
+            )}
           </div>
-          
-          {generatedContent && (
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={handleCopy}>
-                <Copy className="h-4 w-4 mr-2" />
-                Copy
-              </Button>
-              <Button variant="outline" size="sm" onClick={handleDownload}>
-                <Download className="h-4 w-4 mr-2" />
-                Download
-              </Button>
-              <Button variant="ghost" size="sm" onClick={handleReset}>
-                <RotateCcw className="h-4 w-4 mr-2" />
-                New
-              </Button>
-            </div>
-          )}
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-8">
+      <main className="container mx-auto px-4 py-4 sm:py-8">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-4 sm:gap-8">
           {/* Form Section */}
-          <div className="lg:col-span-2 space-y-6">
-            <div className="bg-card border border-border rounded-2xl p-6 space-y-5">
-              <h2 className="text-lg font-semibold">Script Details</h2>
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-5">
+              <h2 className="text-base sm:text-lg font-semibold">Script Details</h2>
 
               <div className="space-y-2">
-                <Label htmlFor="topic">Topic / Title *</Label>
+                <Label htmlFor="topic" className="text-sm">Topic / Title *</Label>
                 <Input
                   id="topic"
                   placeholder="e.g., How to Start a Successful YouTube Channel"
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
+                  className="h-10 sm:h-11"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label>Script Type *</Label>
+                <Label className="text-sm">Script Type *</Label>
                 <Select value={scriptType} onValueChange={setScriptType}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-10 sm:h-11">
                     <SelectValue placeholder="Select script type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -264,9 +266,9 @@ export default function CreateScriptPage() {
               </div>
 
               <div className="space-y-2">
-                <Label>Tone *</Label>
+                <Label className="text-sm">Tone *</Label>
                 <Select value={tone} onValueChange={setTone}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-10 sm:h-11">
                     <SelectValue placeholder="Select tone" />
                   </SelectTrigger>
                   <SelectContent>
@@ -280,29 +282,31 @@ export default function CreateScriptPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="audience">Target Audience</Label>
+                <Label htmlFor="audience" className="text-sm">Target Audience</Label>
                 <Input
                   id="audience"
                   placeholder="e.g., Aspiring content creators aged 18-35"
                   value={targetAudience}
                   onChange={(e) => setTargetAudience(e.target.value)}
+                  className="h-10 sm:h-11"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="platform">Platform</Label>
+                <Label htmlFor="platform" className="text-sm">Platform</Label>
                 <Input
                   id="platform"
                   placeholder="e.g., YouTube, TikTok, Podcast"
                   value={platform}
                   onChange={(e) => setPlatform(e.target.value)}
+                  className="h-10 sm:h-11"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label>Script Length</Label>
+                <Label className="text-sm">Script Length</Label>
                 <Select value={length} onValueChange={setLength}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-10 sm:h-11">
                     <SelectValue placeholder="Select length" />
                   </SelectTrigger>
                   <SelectContent>
@@ -318,16 +322,16 @@ export default function CreateScriptPage() {
               <Button
                 onClick={handleGenerate}
                 disabled={isGenerating || !topic.trim() || !scriptType || !tone}
-                className="w-full h-12 bg-gradient-primary hover:opacity-90"
+                className="w-full h-11 sm:h-12 bg-gradient-primary hover:opacity-90"
               >
                 {isGenerating ? (
                   <>
-                    <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin mr-2" />
                     Generating...
                   </>
                 ) : (
                   <>
-                    <Sparkles className="h-5 w-5 mr-2" />
+                    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                     Generate Script
                   </>
                 )}
@@ -337,27 +341,27 @@ export default function CreateScriptPage() {
 
           {/* Output Section */}
           <div className="lg:col-span-3">
-            <div className="bg-card border border-border rounded-2xl p-6 min-h-[600px]">
-              <h2 className="text-lg font-semibold mb-4">Generated Script</h2>
+            <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px]">
+              <h2 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Generated Script</h2>
               
               {generatedContent ? (
-                <div ref={contentRef} className="prose-scriptora whitespace-pre-wrap">
+                <div ref={contentRef} className="prose-scriptora whitespace-pre-wrap text-sm sm:text-base">
                   {generatedContent}
                 </div>
               ) : isGenerating ? (
-                <div className="flex flex-col items-center justify-center h-[400px] text-center">
+                <div className="flex flex-col items-center justify-center h-[300px] sm:h-[400px] text-center">
                   <div className="relative">
-                    <div className="h-16 w-16 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                    <Sparkles className="h-6 w-6 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                    <div className="h-12 w-12 sm:h-16 sm:w-16 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
+                    <Sparkles className="h-4 w-4 sm:h-6 sm:w-6 text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   </div>
-                  <p className="text-muted-foreground mt-4">Crafting your script...</p>
+                  <p className="text-muted-foreground mt-4 text-sm sm:text-base">Crafting your script...</p>
                 </div>
               ) : (
-                <div className="flex flex-col items-center justify-center h-[400px] text-center">
-                  <FileText className="h-16 w-16 text-muted-foreground/30 mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">Ready to Create</h3>
-                  <p className="text-muted-foreground max-w-sm">
-                    Fill in the details on the left and click "Generate Script" to create your professional script.
+                <div className="flex flex-col items-center justify-center h-[300px] sm:h-[400px] text-center px-4">
+                  <FileText className="h-12 w-12 sm:h-16 sm:w-16 text-muted-foreground/30 mb-4" />
+                  <h3 className="text-base sm:text-lg font-semibold mb-2">Ready to Create</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground max-w-sm">
+                    Fill in the details and click "Generate Script" to create your professional script.
                   </p>
                 </div>
               )}

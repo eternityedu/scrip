@@ -67,8 +67,8 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-gradient-hero flex flex-col">
       {/* Header */}
-      <header className="p-4">
-        <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+      <header className="p-3 sm:p-4">
+        <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
           <ArrowLeft className="h-4 w-4" />
           <span>Back to home</span>
         </Link>
@@ -77,38 +77,38 @@ export default function AuthPage() {
       {/* Main content */}
       <div className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          <div className="bg-card border border-border rounded-2xl p-8 shadow-xl">
+          <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl">
             {/* Logo */}
-            <div className="text-center mb-8">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary shadow-glow mb-4">
-                <Sparkles className="h-6 w-6 text-white" />
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-primary shadow-glow mb-3 sm:mb-4">
+                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-xl sm:text-2xl font-bold">
                 {isSignUp ? 'Create your account' : 'Welcome back'}
               </h1>
-              <p className="text-muted-foreground mt-1">
+              <p className="text-sm sm:text-base text-muted-foreground mt-1">
                 {isSignUp ? 'Start creating amazing content' : 'Sign in to continue'}
               </p>
             </div>
 
             {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               {isSignUp && (
-                <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="fullName" className="text-sm">Full Name</Label>
                   <Input
                     id="fullName"
                     type="text"
                     placeholder="John Doe"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="h-12"
+                    className="h-11 sm:h-12"
                   />
                 </div>
               )}
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="email" className="text-sm">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -116,12 +116,12 @@ export default function AuthPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="h-12"
+                  className="h-11 sm:h-12"
                 />
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+              <div className="space-y-1.5 sm:space-y-2">
+                <Label htmlFor="password" className="text-sm">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -129,14 +129,14 @@ export default function AuthPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="h-12"
+                  className="h-11 sm:h-12"
                 />
               </div>
 
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 bg-gradient-primary hover:opacity-90 shadow-glow"
+                className="w-full h-11 sm:h-12 bg-gradient-primary hover:opacity-90 shadow-glow"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -149,7 +149,7 @@ export default function AuthPage() {
             </form>
 
             {/* Toggle */}
-            <p className="text-center text-sm text-muted-foreground mt-6">
+            <p className="text-center text-xs sm:text-sm text-muted-foreground mt-5 sm:mt-6">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
               <button
                 type="button"
