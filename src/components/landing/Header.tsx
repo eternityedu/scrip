@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Menu, X } from 'lucide-react';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,9 +33,8 @@ export function Header() {
             </a>
           </nav>
 
-          {/* Desktop Auth Buttons & Theme Toggle */}
+          {/* Desktop Auth Buttons */}
           <div className="hidden sm:flex items-center gap-2">
-            <ThemeToggle />
             <Button variant="ghost" asChild>
               <Link to="/auth">Sign In</Link>
             </Button>
@@ -45,17 +43,14 @@ export function Header() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button & Theme Toggle */}
-          <div className="flex sm:hidden items-center gap-1">
-            <ThemeToggle />
-            <button
-              className="p-2 -mr-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="sm:hidden p-2 -mr-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
 
