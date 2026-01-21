@@ -206,10 +206,10 @@ export default function HistoryPage() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-4 sm:py-8">
+      <main className="container mx-auto px-0 sm:px-4 py-4 sm:py-8">
         <Tabs defaultValue="content" className="space-y-4 sm:space-y-6">
           <div className="flex flex-col gap-3 sm:gap-4">
-            <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex">
+            <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:inline-flex mx-4 sm:mx-0">
               <TabsTrigger value="content" className="text-xs sm:text-sm">
                 <FileText className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                 Content ({contentHistory.length})
@@ -220,7 +220,7 @@ export default function HistoryPage() {
               </TabsTrigger>
             </TabsList>
 
-            <div className="relative w-full">
+            <div className="relative w-full px-4 sm:px-0">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search..."
@@ -233,7 +233,7 @@ export default function HistoryPage() {
 
           {/* Content History */}
           <TabsContent value="content" className="space-y-3 sm:space-y-4">
-            <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <div className="px-4 sm:px-0"><Select value={typeFilter} onValueChange={setTypeFilter}>
               <SelectTrigger className="w-full sm:w-48 h-10">
                 <SelectValue placeholder="Filter by type" />
               </SelectTrigger>
@@ -243,14 +243,14 @@ export default function HistoryPage() {
                   <SelectItem key={value} value={value}>{label}</SelectItem>
                 ))}
               </SelectContent>
-            </Select>
+            </Select></div>
 
             {isLoading ? (
               <div className="flex items-center justify-center py-12">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
               </div>
             ) : filteredContent.length === 0 ? (
-              <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-8 sm:p-12 text-center">
+              <div className="bg-card border-y sm:border border-border rounded-none sm:rounded-2xl p-8 sm:p-12 text-center">
                 <FileText className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/30 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2 text-sm sm:text-base">No Content Yet</h3>
                 <p className="text-muted-foreground mb-4 text-xs sm:text-sm">Start creating content to see it here.</p>
@@ -261,7 +261,7 @@ export default function HistoryPage() {
             ) : (
               <div className="grid gap-3 sm:gap-4">
                 {filteredContent.map((item) => (
-                  <div key={item.id} className="bg-card border border-border rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
+                  <div key={item.id} className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
@@ -309,7 +309,7 @@ export default function HistoryPage() {
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
               </div>
             ) : filteredAnalysis.length === 0 ? (
-              <div className="bg-card border border-border rounded-xl sm:rounded-2xl p-8 sm:p-12 text-center">
+              <div className="bg-card border-y sm:border border-border rounded-none sm:rounded-2xl p-8 sm:p-12 text-center">
                 <BarChart3 className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/30 mx-auto mb-4" />
                 <h3 className="font-semibold mb-2 text-sm sm:text-base">No Analysis Reports Yet</h3>
                 <p className="text-muted-foreground mb-4 text-xs sm:text-sm">Analyze content to see reports here.</p>
@@ -320,7 +320,7 @@ export default function HistoryPage() {
             ) : (
               <div className="grid gap-3 sm:gap-4">
                 {filteredAnalysis.map((item) => (
-                  <div key={item.id} className="bg-card border border-border rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
+                  <div key={item.id} className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-2">
@@ -357,7 +357,7 @@ export default function HistoryPage() {
 
       {/* Content View Dialog */}
       <Dialog open={!!selectedContent} onOpenChange={() => setSelectedContent(null)}>
-        <DialogContent className="max-w-[95vw] sm:max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="w-full max-w-full sm:max-w-3xl h-[100dvh] sm:h-auto sm:max-h-[80vh] rounded-none sm:rounded-lg overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-base sm:text-lg">{selectedContent?.title}</DialogTitle>
           </DialogHeader>
@@ -369,7 +369,7 @@ export default function HistoryPage() {
 
       {/* Analysis View Dialog */}
       <Dialog open={!!selectedAnalysis} onOpenChange={() => setSelectedAnalysis(null)}>
-        <DialogContent className="max-w-[95vw] sm:max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="w-full max-w-full sm:max-w-3xl h-[100dvh] sm:h-auto sm:max-h-[80vh] rounded-none sm:rounded-lg overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-base sm:text-lg">Analysis Report</DialogTitle>
           </DialogHeader>
