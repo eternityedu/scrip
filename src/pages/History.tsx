@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { SwipeToDeleteCard } from '@/components/history/SwipeToDeleteCard';
 
 interface ContentItem {
   id: string;
@@ -261,42 +262,62 @@ export default function HistoryPage() {
             ) : (
               <div className="grid gap-3 sm:gap-4">
                 {filteredContent.map((item) => (
-                  <div key={item.id} className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
-                          <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary">
-                            {contentTypeLabels[item.content_type] || item.content_type}
-                          </span>
-                          <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-muted text-muted-foreground">
-                            {item.tone}
-                          </span>
+                  <SwipeToDeleteCard
+                    key={item.id}
+                    onDelete={() => deleteContent(item.id)}
+                    className="rounded-none sm:rounded-xl"
+                    actionLabel="Delete content"
+                  >
+                    <div className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1">
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-primary/10 text-primary">
+                              {contentTypeLabels[item.content_type] || item.content_type}
+                            </span>
+                            <span className="px-1.5 sm:px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-medium bg-muted text-muted-foreground">
+                              {item.tone}
+                            </span>
+                          </div>
+                          <h3 className="font-semibold truncate text-sm sm:text-base">{item.title}</h3>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">{item.topic}</p>
+                          <div className="flex items-center gap-3 sm:gap-4 mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {formatDate(item.created_at)}
+                            </span>
+                            {item.word_count && <span>{item.word_count} words</span>}
+                          </div>
                         </div>
-                        <h3 className="font-semibold truncate text-sm sm:text-base">{item.title}</h3>
-                        <p className="text-xs sm:text-sm text-muted-foreground truncate">{item.topic}</p>
-                        <div className="flex items-center gap-3 sm:gap-4 mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {formatDate(item.created_at)}
-                          </span>
-                          {item.word_count && (
-                            <span>{item.word_count} words</span>
-                          )}
+                        <div className="flex items-center gap-0.5 sm:gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setSelectedContent(item)}
+                            className="h-8 w-8 sm:h-9 sm:w-9"
+                          >
+                            <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => copyContent(item.content)}
+                            className="h-8 w-8 sm:h-9 sm:w-9"
+                          >
+                            <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-destructive h-8 w-8 sm:h-9 sm:w-9"
+                            onClick={() => deleteContent(item.id)}
+                          >
+                            <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-0.5 sm:gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => setSelectedContent(item)} className="h-8 w-8 sm:h-9 sm:w-9">
-                          <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" onClick={() => copyContent(item.content)} className="h-8 w-8 sm:h-9 sm:w-9">
-                          <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive h-8 w-8 sm:h-9 sm:w-9" onClick={() => deleteContent(item.id)}>
-                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
                       </div>
                     </div>
-                  </div>
+                  </SwipeToDeleteCard>
                 ))}
               </div>
             )}
@@ -320,34 +341,55 @@ export default function HistoryPage() {
             ) : (
               <div className="grid gap-3 sm:gap-4">
                 {filteredAnalysis.map((item) => (
-                  <div key={item.id} className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className={`px-2 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-bold ${getScoreColor(item.overall_score)}`}>
-                            {item.overall_score.toFixed(1)}/10
-                          </span>
+                  <SwipeToDeleteCard
+                    key={item.id}
+                    onDelete={() => deleteAnalysis(item.id)}
+                    className="rounded-none sm:rounded-xl"
+                    actionLabel="Delete report"
+                  >
+                    <div className="bg-card border-y sm:border border-border rounded-none sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-shadow">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span
+                              className={`px-2 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-bold ${getScoreColor(
+                                item.overall_score
+                              )}`}
+                            >
+                              {item.overall_score.toFixed(1)}/10
+                            </span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
+                            {item.content_analyzed.slice(0, 150)}...
+                          </p>
+                          <div className="flex items-center gap-4 mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-muted-foreground">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {formatDate(item.created_at)}
+                            </span>
+                          </div>
                         </div>
-                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
-                          {item.content_analyzed.slice(0, 150)}...
-                        </p>
-                        <div className="flex items-center gap-4 mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {formatDate(item.created_at)}
-                          </span>
+                        <div className="flex items-center gap-0.5 sm:gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setSelectedAnalysis(item)}
+                            className="h-8 w-8 sm:h-9 sm:w-9"
+                          >
+                            <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-destructive h-8 w-8 sm:h-9 sm:w-9"
+                            onClick={() => deleteAnalysis(item.id)}
+                          >
+                            <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                          </Button>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-0.5 sm:gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => setSelectedAnalysis(item)} className="h-8 w-8 sm:h-9 sm:w-9">
-                          <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive h-8 w-8 sm:h-9 sm:w-9" onClick={() => deleteAnalysis(item.id)}>
-                          <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                        </Button>
                       </div>
                     </div>
-                  </div>
+                  </SwipeToDeleteCard>
                 ))}
               </div>
             )}
