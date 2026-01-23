@@ -95,14 +95,15 @@ serve(async (req) => {
   }
 
   try {
-    const { topic, contentType, tone, targetAudience, platform, length, goal } = await req.json();
+    const { topic, contentType, tone, targetAudience, platform, length, goal, formatType } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const format = contentTypeFormats[contentType] || "long_form";
+    // Use explicit formatType if provided, otherwise derive from contentType
+    const format = formatType || contentTypeFormats[contentType] || "long_form";
     const formatInstruction = formatInstructions[format] || formatInstructions.long_form;
     const typeContext = contentTypeContext[contentType] || "You are a professional content writer.";
     
