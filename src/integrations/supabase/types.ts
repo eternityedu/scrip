@@ -238,6 +238,8 @@ export type Database = {
         | "formal"
         | "humorous"
         | "inspirational"
+        | "cinematic"
+        | "bold"
       content_type:
         | "blog_article"
         | "seo_article"
@@ -393,6 +395,8 @@ export const Constants = {
         "formal",
         "humorous",
         "inspirational",
+        "cinematic",
+        "bold",
       ],
       content_type: [
         "blog_article",
