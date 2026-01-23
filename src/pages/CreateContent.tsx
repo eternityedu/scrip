@@ -40,6 +40,23 @@ const lengths = [
   { value: 'extended', label: 'Extended (2000+ words)' },
 ];
 
+const formatTypes = [
+  { value: 'long_form', label: 'Long-form (structured article)' },
+  { value: 'hook', label: 'Hooks (5-10 attention grabbers)' },
+  { value: 'title', label: 'Titles (10-20 options)' },
+  { value: 'copywriting', label: 'Copywriting (conversion-focused)' },
+  { value: 'roleplay', label: 'Roleplay (persona-driven)' },
+];
+
+const goals = [
+  { value: 'inform', label: 'Inform' },
+  { value: 'educate', label: 'Educate' },
+  { value: 'sell', label: 'Sell / Convert' },
+  { value: 'entertain', label: 'Entertain' },
+  { value: 'inspire', label: 'Inspire' },
+  { value: 'engage', label: 'Engage' },
+];
+
 export default function CreateContentPage() {
   const { user, isLoading: authLoading } = useAuth();
   const [topic, setTopic] = useState('');
@@ -48,6 +65,8 @@ export default function CreateContentPage() {
   const [targetAudience, setTargetAudience] = useState('');
   const [platform, setPlatform] = useState('');
   const [length, setLength] = useState('');
+  const [formatType, setFormatType] = useState('');
+  const [goal, setGoal] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
@@ -88,6 +107,8 @@ export default function CreateContentPage() {
           targetAudience: targetAudience.trim(),
           platform: platform.trim(),
           length,
+          formatType: formatType || undefined,
+          goal: goal || undefined,
         }),
       });
 
@@ -189,6 +210,8 @@ export default function CreateContentPage() {
     setTargetAudience('');
     setPlatform('');
     setLength('');
+    setFormatType('');
+    setGoal('');
     setGeneratedContent('');
   };
 
@@ -277,6 +300,38 @@ export default function CreateContentPage() {
                     {tones.map((t) => (
                       <SelectItem key={t.value} value={t.value}>
                         {t.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm">Format Type</Label>
+                <Select value={formatType} onValueChange={setFormatType}>
+                  <SelectTrigger className="h-10 sm:h-11">
+                    <SelectValue placeholder="Auto (based on content type)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {formatTypes.map((f) => (
+                      <SelectItem key={f.value} value={f.value}>
+                        {f.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-sm">Goal</Label>
+                <Select value={goal} onValueChange={setGoal}>
+                  <SelectTrigger className="h-10 sm:h-11">
+                    <SelectValue placeholder="What's the purpose?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {goals.map((g) => (
+                      <SelectItem key={g.value} value={g.value}>
+                        {g.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
