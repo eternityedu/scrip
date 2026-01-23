@@ -31,6 +31,8 @@ const tones = [
   { value: 'friendly', label: 'Friendly' },
   { value: 'humorous', label: 'Humorous' },
   { value: 'inspirational', label: 'Inspirational' },
+  { value: 'cinematic', label: 'Cinematic' },
+  { value: 'bold', label: 'Bold' },
 ];
 
 const lengths = [
