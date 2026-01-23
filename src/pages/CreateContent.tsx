@@ -23,16 +23,16 @@ const contentTypes = [
 ];
 
 const tones = [
-  { value: 'professional', label: 'Professional' },
-  { value: 'casual', label: 'Casual' },
-  { value: 'emotional', label: 'Emotional' },
-  { value: 'persuasive', label: 'Persuasive' },
-  { value: 'authoritative', label: 'Authoritative' },
-  { value: 'friendly', label: 'Friendly' },
-  { value: 'humorous', label: 'Humorous' },
-  { value: 'inspirational', label: 'Inspirational' },
-  { value: 'cinematic', label: 'Cinematic' },
-  { value: 'bold', label: 'Bold' },
+  { value: 'professional', label: 'Professional', description: 'Polished, credible, business-appropriate' },
+  { value: 'casual', label: 'Casual', description: 'Relaxed, conversational, approachable' },
+  { value: 'emotional', label: 'Emotional', description: 'Heartfelt, moving, connects deeply' },
+  { value: 'persuasive', label: 'Persuasive', description: 'Compelling, convincing, action-driving' },
+  { value: 'authoritative', label: 'Authoritative', description: 'Expert, confident, trustworthy' },
+  { value: 'friendly', label: 'Friendly', description: 'Warm, welcoming, personable' },
+  { value: 'humorous', label: 'Humorous', description: 'Witty, entertaining, lighthearted' },
+  { value: 'inspirational', label: 'Inspirational', description: 'Uplifting, motivating, empowering' },
+  { value: 'cinematic', label: 'Cinematic', description: 'Dramatic, vivid, movie-like storytelling' },
+  { value: 'bold', label: 'Bold', description: 'Confident, impactful, attention-grabbing' },
 ];
 
 const lengths = [
@@ -300,8 +300,11 @@ export default function CreateContentPage() {
                   </SelectTrigger>
                   <SelectContent>
                     {tones.map((t) => (
-                      <SelectItem key={t.value} value={t.value}>
-                        {t.label}
+                      <SelectItem key={t.value} value={t.value} className="py-2.5">
+                        <div className="flex flex-col">
+                          <span className="font-medium">{t.label}</span>
+                          <span className="text-xs text-muted-foreground">{t.description}</span>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
